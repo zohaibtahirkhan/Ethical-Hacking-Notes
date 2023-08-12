@@ -1,0 +1,136 @@
+rm -rf, '>' del the previous data, '>>' append tha data , "cat file.txt | more", "cat file.txt | less" , mv can be used to rename the file "mv file.txt io.txt","sudo updatedb" than use "locate file.txt" then it wil tell the file path, "which python" use to locate an install software, "whatis ls" gives a samll description about command, "alias temp='ls -a'" will store the command in the variable 
+
+0.stdin (points to keyboard, finds keyboard data)
+1.stdout 
+2.stderr 
+
+- echo "A" > log.txt 2>&1, here &1 mean the path to the output
+- find / -type f -name log.txt 2>/dev/null, find from root type f(file) and send the error to the 
+- hello &> file.txt, if an error occurs it will redirect to the file
+- ls | tee file.txt, execute the command and store it also in the file.txt 
+- cat adam.txt | cut -c 1,cat adam.txt | cut -c 1-2(range from 1-2 character) cut first character of the line and display      
+  it in cmd
+- cat adam.txt | cut -d " " -f 1, cut the first field before the space 
+- nl log.txt, displays the number of lines in txt file
+- head -n 1 file.txt, give number of lines from the head
+- tail -n 2 file.txt, give last 2 lines from, i.e tail
+- head -n 4 file.txt | tail -n 2 , give the last two lines from the result of the head 4 lines
+- sort log.txt  , sort the lines in ascending order
+- sort -r log.txt , sort the lines in descending order
+- sort log.txt | uniq , gives the result once if duplicated is present 
+- wc log.txt , (word comes) gives the line number, number of words and characters    
+- wc -l log.tx, show no. of lines, -w show no. of words, -c show no. of characters 
+- file log.txt
+- cat log.txt | grep -i "hello", show results ignore the casesensitive
+- cat log.txt | grep -v "hello", show me lines that not contains hello 
+
+
+----------------------------    FILE PERMISSIONS   -----------------------------
+
+first field is the user permission , second is for the group permission and third one is for rest , everyone
+4 = read
+2 = write
+1 = execute
+- chmod 777 , give user rwx, grp rwx, other rwr, just add the numbers 
+- umask -h , we can set the default file permissions from here 
+- umask 022, the numbers represent the permissions which i don't wan to give 
+
+---------------------------  Special Permissions   ----------------------------
+
+chmod u+s file.txt,assigning sticky bit to user(it's executable (x) permission that we don't have to run administrator)
+chmod +x file.txt (we have to do it then the capital S become the small 's' and it becomes executable)
+chmod g+s file.txt, assigning sticky bit to group
+chmod +x file.txt
+chmod a+t file.txt, assigning sticky bit to anyother usesr,if we assign that to file the inner contents of the file can't
+	  be del. 
+find / -perm -u=s -type f 2>/dev/null, find file having permission of user sticky bit from root
+
+---------------------------   User Management     ----------------------------- 
+
+ls / , list all the files in the root
+su , means substitute user 
+sudo adduser [username], create new user and i can see this in the "/home" directory
+sudo del [username], than restart the computer 
+cat /etc/passwd, have the users info, first is user name, 'x' means there data is encrypted and is store in the file 	"/etc/shadow", first one is user id and the second one is the group id. and the last thing "/bin/bash" tell that 	what the shell user have, in case "/bin/bash" it is linus shell  
+cat /etc/shadow, 
+		kali:$y$j9T$7X9YlJ7c4u44URQvzTxxT0$BisyVCLhoPfP22Svis.KFV5tMwCFEJgT7yJIRCHp3G/:19426:0:99999:7:::
+         [username] if there is steric "*" in front f user it's mean it is a demon or a service we can't login it,
+: [encrypted password] : [unix epoch] : [The minimum number of days required between password changes] if it is zero than we can change our password at any time otherwise we have to wait for that days to channge passwd, : [life of our passwd, 99999 days] : [before the 7 days of the lifetime i get notification ] 
+
+--------------------------  Environment Variables -----------------------------
+
+env , shows environment variables
+PATH = [PATH], this variable checks that the typed command is vaid or not so the PATH variable checks it binaries and check that it is valid command or not 
+echp $PATH, show the value store in the path   
+export ip=192.168.174.129, stores the variable in the environment variables, have temporary life 
+echo $ip , print the value
+ping $ip, treat as a variable
+echo PATH=$PATH:/home/kali/Desktop , append the last path to the variable 
+
+-------------------------    Software management ------------------------------
+
+apt-cache search chrome, search the software cache 
+sudo apt install gdebi ,lightweight tool designed to install local Debian (.deb) packages along with their dependencies.
+sudo dpkg -i [name] , we have to manually install the dependencies of that software if we use this cmd to install the 			      software 
+sudo gdebi [name], this will resolve the dependencies
+sudo apt remove [name]
+------------------------  Cron Jobs   -------------------------
+
+crontab -l , help
+   m        h          dom         mon        dow           command 
+[minute] [hour]   [day of month] [month]  [day of week]  [to be executed]
+ */5(scripts run for ever five minutes) or 0-15(run for starting 15 minutes ), 6-9 (range of hours from  6AM TO 9AM), /*2 (run every to hours)
+4 in months [mean run the command upto 4 months, not in the fourth month]
+* every time otherwise i have to set the time 
+crontab -e, mean '-e' edit that file, jobs run with the root privilliges , hour are in format [0-23], 0 is 12
+ls etc/cron.*
+* * * * * echo "hi" >> temp.txt
+
+----------------------  Service management -------------------------
+service --status-all
+sudo apt install openssh-server, ssh gives the remote login with interpret connection
+sudo systemctl ssh enable(or diable), if I want to run a service at starting the computer I use this command (systemctl)
+sudo systemctl start ssh, start the service and enable it to run at starting computer
+
+-----------------  Zipping, Tar Balls and compression -------------------
+zip {output file name.zip} {path for output}
+unzip {name of file}
+tar -cvf {give name.tar} {path for output}, to compress the files
+tar -xvf (file name)
+
+we can also compress the file with the compression techniques
+tar -cvzf {output file name.tar.gz} {path for output}
+
+to unzip and uncompress it we run cmd 
+gunzip (file name)       or tar -xvzf (file name) , do both works
+tar -xvf (file name)
+
+tar -cvjf {name.tar.bz2} {path for output}, bzip compression of tar 
+tar -xvjf (file name)
+
+---------------
+
+arp -a
+---------------   ssh on windows -------------------
+
+putty.org,   is the ssh service for the windows, but having a drawback of having only one instance at a time
+solar-putty, to resolve the above problem we have this software 
+-----------------------------------------------------------------
+ping -i 2 google.com,	send packets after 2 seconds
+ping -c 5 google.com,	only sends 5 packets
+traceroute google.com, display the whole path    , for linux
+tracert [name of ip or web link]                 , for windows
+##################################################    THE IMITATION GAME ###################################################### 
+
+
+
+
+
+
+
+
+
+
+
+
+

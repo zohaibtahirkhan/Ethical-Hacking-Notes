@@ -1,0 +1,28 @@
+
+---------------------------- theHarvester  ------------------------------------
+-d for domainand -b for browser
+python3 theHarvester.py -d microsoft.com -b yahoo,bing (or can add as many much as we can)
+
+---------------------------  Host command -------------------------------------
+host command is use for getting dns records of domain 
+ ** Remember www.google.com is different from google.com ** we have to seearch for the google.com
+ host google.com, gives the dns info 
+ host -t aaaa google.com, gives the ipv6 address of google.com
+ host -t ptr google.com, checks if google points out any other domain
+ host -t mx  google.com, shows mail exchange server
+ host -t ns  google.com, gives the dns name servers
+ host -l google.com ns1.google.com, list the records of the name servers of google given
+ host zonetransfer.me, it is for testing purpose to check the records of dns
+ ------------------------- nslookup  ---------------------------------
+ nslookup google.com
+ nslookup -query=mx google.com or -query=ns 
+ ---------------- dig ---------------------         ############### more advanced ############## to prevent false +ve use all these 3
+ dig -h , dig google.com, dig mx google.com, dig ns google.com,  
+dig axfr @nsztm1.digi.ninja zonetransfer.me, gives the info for the ns 
+------------------------  dnsrecon and dnsenum  -----------------------------
+dnsrecon -d google.com
+dnsenum google.com, dnsenum google.com -f [path and the file name] that gives us the bruteforce of the sub-domains
+
+
+--------------- amass ------------------                    ######    GOOD TOOL   #######
+amass enum -d google.com for getting many info

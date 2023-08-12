@@ -1,0 +1,11 @@
+smbmap and smbclient are used to connect to the smb 
+if we don't use the user name or password it works for anonymous logi
+
+smbmap -H [ip]
+
+smbclient -L [ip] , is the shares
+smbclient -L [ip] --option="client min protocol=NT1" , we us the last option if the last protocol is very
+    old versioned
+smbclient //[ip]/tmp or (other) --option="client min protocol=NT1"  , establish connection
+
+enum4linux -a [ip] , -a means all type of enumeration , it will enumerate all about the smb 

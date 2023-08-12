@@ -1,0 +1,57 @@
+NETCAT
+------
+Netcat, often abbreviated as `nc`, is a versatile networking utility that allows you to read from and 
+write to network connections using TCP or UDP protocols. It's often referred to as the "Swiss Army knife" of 
+networking tools because of its ability to establish connections, transfer data, and perform various network-related 
+tasks. Netcat is commonly used for tasks like port scanning, banner grabbing, file transfers, and even as a basic 
+server for testing and debugging.
+
+=> Syntax
+   ------
+nc [options] host port
+- nc: The command to invoke Netcat.
+- [options]: Various command-line options you can provide to customize Netcat's behavior.
+- host: The target host you want to connect to or bind on.
+- port: The port number on the host you want to connect to or listen on.
+
+=> Options
+   -------
+
+-l: Listen mode. This tells Netcat to listen for incoming connections.
+-p[port(s)]: Specify the port number to use when listening or connecting.
+-u: Use UDP instead of the default TCP.
+-n: Don't resolve hostnames. Use IP addresses instead.
+-v: Increase verbosity. You can use this multiple times for more verbosity.
+
+Examples:
+
+1. Simple Connection: To connect to a remote host and port using TCP, you would use:
+
+   => nc host_name_or_ip port_number
+
+
+2. Listen for Connections: To set up Netcat to listen for incoming connections on a specific port:
+
+   => nc -l -p port_number
+
+
+3. UDP Connection: To use UDP instead of TCP:
+
+   => nc -u host_name_or_ip port_number
+
+
+4. Transfer Data: You can use Netcat to transfer data between two machines. For instance, on the receiving end, you could do:
+
+   => nc -l -p port_number > received_data.txt
+
+   On the sending end, you could do:
+
+   => cat data_to_send.txt | nc host_name_or_ip port_number
+
+
+=> nc -vv google.com -p 80 , listen connection from google on port 80 
+=> nc -vlp 1234 , listen the connection on port 1234
+=> GET / HTTP/1.1 , sending request to google
+=> nc -nv [ip] [port] , set the conection to the specific ip on that particular port
+=> nc -vv -l -p 1234 -e /bin/bash , this will execute the bash shell in the 
+   we can pivot the network on one terminal also 

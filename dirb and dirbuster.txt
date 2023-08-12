@@ -1,0 +1,3 @@
+dirbuster (GUI)
+dirb (cl)
+dirb [url] [path of wordlist]

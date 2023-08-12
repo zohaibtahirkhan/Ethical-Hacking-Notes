@@ -1,0 +1,2 @@
+nikto -h [ip] -p [port]
+        very powerful do a very good scan 

@@ -1,0 +1,128 @@
+nmap [Scan Type(s)] [Options] [Target(s)]
+
+Scan Types
+----------
+Ping Scan (-sP): Discover live hosts using ICMP echo requests.
+TCP SYN Scan (-sS): Stealthy scan using SYN packets to identify open ports.
+TCP Connect Scan (-sT): Fully connects to ports to determine openness.
+UDP Scan (-sU): Scan for open UDP ports.
+Version Detection (-sV): Attempt to determine service and version info.
+ACK Scan (-sA): Identify firewall rules using ACK packets.
+XMAS Scan (-sX): Send packets with multiple flags to probe ports.
+FIN, NULL, and XMAS Scans (-sF, -sN, -sX): Probe for open ports.
+And more...
+
+Common Options
+--------------
+-p <port range>: Specify ports to scan (e.g., -p 22,80-100).
+-T<0-5>: Set timing template for scan speed.
+--max-rtt-timeout <milliseconds>: Sets the maximum round-trip time (RTT) for a probe response.
+--min-rtt-timeout <milliseconds>: Sets the minimum RTT for a probe response.
+-oN <filename>: Save results in normal (text) format.
+-oX <filename>: Save results in XML format.
+-A: Enable aggressive scan options.
+-v, -vv: Increase verbosity for more output detail.
+-v verbose
+-vv very verbose
+--script <script>: Run specific NSE scripts for additional testing.
+And many more options for customization.
+
+Target Specification
+--------------------
+Single Host: nmap <host>           =>Specify a single target host using its IP address or hostname. e.g 192.168.1.1
+Host Range: nmap <start-end>	   =>Define a range of IP addresses using hyphens (e.g., 192.168.1.1-10)
+CIDR Notation: nmap <CIDR>         =>Use CIDR notation to specify a network range (e.g., 192.168.1.0/24)
+List of Hosts: nmap -iL <file>     => e.g., nmap -iL targets.txt
+Excluding Hosts: --exclude <host1,host2,...>
+
+Output Formats
+--------------
+-oN <filename>: Normal (text) format.
+-oX <filename>: XML format.
+-oG <filename>: Greppable format.
+-oA <basename>: All formats with specified base name.
+=> use xsltproc to comvert xml to html file e.g xsltproc defaultSCAN.xml -o defaultSCAN.html
+
+Advanced Techniques
+-------------------
+=>Tracerouting
+--traceroute: Perform traceroute to discover network path.
+"""The --traceroute option performs a traceroute to the target host, revealing the path that network packets 
+take from your machine to the target and back. This can help you understand the network topology, identify 
+potential bottlenecks, and analyze the routing path. Traceroute also shows the IP addresses and hostnames of 
+intermediate routers. """ 
+   => syntax nmap --traceroute <target>
+ 
+=> MAC Spoofing
+--spoof-mac <MAC>: Spoof MAC address in Ethernet frames.
+"""You can use the --spoof-mac option to spoof your MAC address when sending packets during scans. 
+This can help you avoid detection or confuse network security systems that rely on MAC address filtering or 
+tracking. Be cautious when using this technique, as MAC spoofing can have legal and ethical implications."""
+   => syntax nmap --spoof-mac <MAC> <target>
+
+=> Time to Live
+--ttl <value>: Set IP time-to-live field for outgoing packets.
+"""The --ttl option allows you to set the IP time-to-live (TTL) value in outgoing packets. 
+TTL specifies the number of hops a packet can make before being discarded. By adjusting the TTL value, 
+you can observe how network devices handle packets with different TTL values, potentially revealing more about 
+the network structure."""
+   => syntax nmap --ttl <value> <target>
+
+=> Fragmentation
+"""The --mtu option lets you specify the maximum transmission unit (MTU) size for outgoing packets. 
+This can be useful for testing how network devices handle fragmented packets or for evading intrusion detection 
+systems that might not handle fragmented packets effectively."""
+    => syntax nmap --mtu <value> <target>
+
+=>Decoy Scan
+"""Decoy scans involve sending packets from multiple source IP addresses in addition to your own. 
+This technique can make it harder for target systems to identify the actual source of the scan. The -D option 
+allows you to specify decoy IP addresses. The last address in the list can be your actual IP address or "ME" to 
+exclude it from decoys."""
+   => syntax nmap -D <decoy1,decoy2[,ME]> <target>
+
+Firewall Evasion Techniques
+---------------------------
+nmap provides several techniques to potentially bypass or evade firewall rules and intrusion detection systems:
+
+--flood: Sends packets as fast as possible to overwhelm a target system's resources.
+--reason: Displays the reason for the port status (open, closed, filtered, etc.).
+--source-port <port>: Specifies a source port number for outgoing packets.
+--data-length <length>: Sets a custom data length for packets.
+
+=> These techniques can be used to test the robustness of your own firewall rules or to assess the effectiveness 
+of security measures in target networks. However, use them carefully and ethically, as they can potentially disrupt 
+network services.
+
+Service and Version Detection
+-----------------------------
+-sV: Attempt to determine service and version info.
+--version-intensity <level>: Specify version detection intensity.
+
+OS Detection
+-------------
+-O: Enable operating system detection.
+--osscan-limit: Limit OS detection to promising targets.
+
+NSE Scripts
+-----------
+Nmap Scripting Engine (NSE) allows custom scripts for additional functionality like vulnerability scanning, brute forcing, etc. Use --script <script> to use specific scripts.
+e.g., sudo nmap -v -n -Pn -p139,445 -sV -script="smb-vuln*" 192.168.10.4
+=> you can also provide arguments to script
+e.g., nmap -Pn -n -sV --open 192.168.216.130 192.168.216.131 --script "ssh*" --script-args userdb=user, passdb=pass -p22 -v
+
+=> ip a , tell ip address
+=> nmap -v -sn [ip] | grep -v "host down" , shows the result only for live host
+=> nmap -v -n -Pn [ip] , -n means don't search the ip in dns and -Pn skips the host discovery
+=> nmap -v -n -Pn -p 80 [ip]  or  -p 1-2000  or  -sU/-sT (for upd or tcp ports) , -sV for version and 
+    -sV -sC (use both) to run the scripts on the ports
+    .nse are nmap scripts
+=> nmap -v -n -Pn --script=default [ip] , run the namp script on the port , or --script=http.enum.nse
+    we can also run the multiple scripts at the same time by using comma 
+    or --script=http-vuln-cve* run all teh scripts start with this name 
+
+    
+
+=> nbtscan [ip] ,   get the NetBIOS name
+
+--open --randomize-hosts -Tinsane

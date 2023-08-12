@@ -1,0 +1,44 @@
+NCAT
+----
+Ncat is an improved and extended version of the original `netcat` (often referred to as `nc`). 
+It provides enhanced security features, improved performance, and additional functionality. `Ncat` is a part of the 
+Nmap project and is designed to be more reliable and powerful than the traditional `netcat`.
+
+Syntax
+------
+ncat [options] host port
+
+ncat: The command to invoke `ncat`.
+[options]: Various command-line options you can provide to customize `ncat`'s behavior.
+host: The target host you want to connect to or bind on.
+port: The port number on the host you want to connect to or listen on.
+
+Options
+-------
+
+-l: Listen mode. This tells `ncat` to listen for incoming connections.
+-p [port]: Specify the port number to use when listening or connecting.
+-u: Use UDP instead of the default TCP.
+-k: Accept multiple connections in listen mode.
+--ssl: Enable SSL/TLS encryption for the connection.
+--ssl-cert <file>: Specify the SSL certificate file.
+--ssl-key <file>: Specify the SSL private key file.
+--exec <command>: Execute a command and redirect its input/output to the network connection.
+--proxy <proxy>: Use a proxy server for connecting.
+
+Examples
+--------
+1. Simple Connection: To connect to a remote host and port using TCP, you would use:
+   => ncat host_name_or_ip port_number
+
+2. Listen for Connections: To set up `ncat` to listen for incoming connections on a specific port:
+   => ncat -l -p port_number
+
+3. UDP Connection: To use UDP instead of TCP:
+   => ncat -u host_name_or_ip port_number
+
+4. Secure Connection: To establish an SSL/TLS-encrypted connection:
+   => ncat --ssl host_name_or_ip port_number
+
+5. Execute Command: You can use `ncat` to execute a command and redirect its input/output to the network connection:
+   => ncat -l -p port_number --exec "/bin/sh"

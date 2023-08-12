@@ -1,0 +1,27 @@
+Netstat
+-------
+SYNTAX: netstat [options]
+
+OPTIONS:
+-a or --all: Displays all active connections and listening ports, including those that are in the "LISTEN" state.
+-t or --tcp: Shows TCP connections.
+-u or --udp: Displays UDP connections.
+-n or --numeric: Displays numerical addresses instead of resolving hostnames and service names.
+-p or --program: Shows the process ID (PID) and program name that is associated with each connection.
+-r or --route: Displays the kernel routing table.
+-s or --statistics: Shows network statistics. When used with -p, it shows network statistics by protocol.
+-l or --listening: Shows only listening ports.
+-c or --continuous: Continuously updates the displayed information.
+-h or --help: Displays help information about the command.
+-e or --extend: Displays additional information, such as detailed statistics for Ethernet interfaces.
+-w or --wide: Prevents truncation of long addresses and port numbers, making the output more readable.
+-o or --timers: Displays TCP timers information.
+-x or --unix: Shows UNIX domain socket connections.
+-g or --groups: Displays multicast group information.
+-F or --fib: Displays Forwarding Information Base (FIB) entries.
+-M or --masquerade: Shows masqueraded connections for Network Address Translation (NAT).
+--ip: Shows IP socket information.
+--icmp: Shows ICMP socket information.
+--ax25: Shows AX.25 socket information (Amateur Packet Radio).
+--ipx: Shows IPX socket information (Novell NetWare).
+--netlink: Shows netlink socket information.

@@ -1,0 +1,6 @@
+gobuster dir -u http://[url]  -w [path of wordlist]
+        here dir stands for directory, -u stands for url, -w is wordlist placed in linux
+        it is a good practice to find the nested directories, mean if i find a subdmain do run gobuster again
+        on that subdomain 
+        locate dirbuster
+        (/usr/share/wordlists/) 
